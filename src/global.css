@@ -1,0 +1,39 @@
+:root {
+  font-size: 16px;
+}
+
+.page-root {
+  @apply p-4 sm:p-5 md:p-[4.5rem];
+}
+
+.section-gap {
+  @apply mt-7;
+}
+
+.section-gap-sm {
+  @apply mt-4;
+}
+
+.section-gap-lg {
+  @apply mt-8;
+}
+
+/* override md editor style */
+.customer_markdown,
+.w-md-editor-content {
+  ul,
+  li {
+    list-style: unset;
+  }
+}
+.w-md-editor-text {
+  min-height: 100% !important;
+}
+
+.w-md-editor-toolbar {
+  justify-content: space-between;
+}
+.w-md-editor-toolbar ul {
+  display: flex;
+  align-items: center;
+}
