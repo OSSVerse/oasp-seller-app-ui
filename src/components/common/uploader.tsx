@@ -59,19 +59,20 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
         onDragOver={(event) => event.preventDefault()}
       >
         <div className="opacity-80">
-          <label htmlFor={"browse_" + ID}>
+          <label htmlFor={`browse_${ID}`}>
             <div className="flex flex-col items-center">
               <div className="mb-3">
                 <Icon icon="upload" size="large" />
               </div>
               <div>
-                <p>Drag & drop file here or Select file</p>
+                <p data-testid="drag-drop-text" >Drag & drop file here or Select file</p>
                 <p>(File type {options.type})</p>
               </div>
             </div>
           </label>
           <input
             type="file"
+            data-testid="file-input"
             hidden
             id={"browse_" + ID}
             onChange={handleFileChange}
@@ -88,6 +89,7 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
             <div key={index} className="flex ms-2 w-full justify-between">
               <div className="line-clamp-1">{file.name}</div>
               <XIcon
+                data-testid="x-icon"
                 className="h-6 w-6 text-stone-500 cursor-pointer"
                 onClick={() => handleRemoveFile(index)}
               />
@@ -99,11 +101,10 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
           {files.map((file, index) => (
             <div key={index} className="me-3">
               <div
-                className={`w-24 h-20 ${
-                  file.type !== "audio/mp3" &&
+                className={`w-24 h-20 ${file.type !== "audio/mp3" &&
                   file.type !== "audio/mpeg" &&
                   "bg-stone-100"
-                } border-2`}
+                  } border-2`}
               >
                 <div className="flex justify-end">
                   <XIcon
@@ -111,7 +112,7 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
                     onClick={() => handleRemoveFile(index)}
                   />
                 </div>
-                {file.type == "audio/mp3" || file.type == "audio/mpeg" ? (
+                {file.type === "audio/mp3" || file.type === "audio/mpeg" ? (
                   <div className="flex justify-center">
                     <MicIcon className="h-6 w-6 text-stone-500" />
                   </div>
@@ -123,11 +124,11 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
                 )}
               </div>
               <div className="mt-1">
-                {file.type == "image/jpeg" || file.type == "image/png"
+                {file.type === "image/jpeg" || file.type === "image/png"
                   ? "Acme image"
-                  : file.type == "video/mp4"
+                  : file.type === "video/mp4"
                     ? "Acme video"
-                    : file.type == "audio/mp3" || file.type == "audio/mpeg"
+                    : file.type === "audio/mp3" || file.type === "audio/mpeg"
                       ? "Audio record"
                       : file.type}
               </div>

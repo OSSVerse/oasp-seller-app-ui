@@ -40,7 +40,7 @@ const ChangePasswordModal = () => {
 
     if (!isModalOpen) return null;
     return (
-        <Dialog open={isModalOpen} onOpenChange={onClose}>
+        <Dialog test-id="change-password-modal" open={isModalOpen} onOpenChange={onClose}>
             <DialogContent className="p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="">
