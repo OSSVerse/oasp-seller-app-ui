@@ -10,7 +10,6 @@ import { AUTH_STORAGE_TOKEN } from "@/lib/constant";
 const axiosInstance = Axios.create({
   baseURL: API_BASE_URL,
 });
-console.log(API_BASE_URL);
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = storage.getItem(AUTH_STORAGE_TOKEN) ?? sessionStorage.getItem(AUTH_STORAGE_TOKEN);

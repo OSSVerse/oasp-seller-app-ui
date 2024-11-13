@@ -48,7 +48,7 @@ const OrderListItem = ({
                 Request #{order?.billing?.tax_number} . {order?.billing?.phone}
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div data-testid="service-order-badges" className="flex flex-wrap gap-3">
               {order?.items.map((serviceOrder) => (
                 <ServiceOrderBadge
                   key={serviceOrder.productSubcategory1}
@@ -56,7 +56,7 @@ const OrderListItem = ({
                 />
               ))}
             </div>
-            <div>₹{order?.quote?.price?.value}</div>
+            <div data-testid="price">₹{order?.quote?.price?.value}</div>
             <div>
               <DeliveryDue dayDiff={dayDiff} />
             </div>
