@@ -106,6 +106,7 @@ const CreateStepProjectDetails = ({
             <FormRow
               required
               name="MRP"
+              type="number"
               value={String(data.commonDetails.MRP)}
               onChange={handleChange}
             >

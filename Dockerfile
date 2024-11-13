@@ -18,7 +18,7 @@ COPY . .
 
 # Set build environment variable
 ARG VITE_API_BASE_URL
-ENV VITE_API_BASE_URL=http://openfort-api.ossverse.com/api/v1/
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 # Build the application
 RUN pnpm run build
