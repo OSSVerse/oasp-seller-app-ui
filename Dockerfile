@@ -15,6 +15,7 @@ RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the source code
 COPY . .
+COPY .env .
 
 # Set build environment variable
 ARG VITE_API_BASE_URL
