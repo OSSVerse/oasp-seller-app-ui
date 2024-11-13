@@ -2,8 +2,8 @@ import FormRow from "@/components/common/form-row";
 import { Button } from "@/components/ui/button";
 import { ORDER_STATUS } from "@/lib/constant";
 import { useMyProject } from "@/store/my-project-store";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface CreateStepProjectDetailsProps {
   setCurrentStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +15,21 @@ const CreateStepProjectDetails = ({
   const { createProjectDetails, setCreateProjectDetails } = useMyProject();
   const [data, setData] = useState(createProjectDetails);
 
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
+
+
+  useEffect(() => {
+    if (type === "model") {
+      handleChange("ML Model", "productCategory");
+    }
+    if (type === "project") {
+      handleChange("OSS Project", "productCategory");
+    }
+  }, [type]);
+
   const handleChange = (val: string, name: string) => {
+
     const value =
       name === "MRP" || name === "purchasePrice" ? Number(val) : val;
     setData((pre) => ({
@@ -78,6 +92,8 @@ const CreateStepProjectDetails = ({
               disabled
               required
               name="type"
+              key={data.commonDetails.productCategory}
+              selected={data.commonDetails.productCategory}
               value={data.commonDetails.type}
               onChange={handleChange}
             >
