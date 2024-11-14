@@ -2,7 +2,6 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { MDEditorWrapper } from "./markdown-editor";
 import Select, { SelectItem } from "../ui/select";
-import { useState } from "react";
 
 /**
  * Props for the FormRow component.
@@ -47,6 +46,7 @@ interface SelectFormRowProps extends BaseFormRowProps {
   variant: "select";
   data: string[];
   disabled?: boolean;
+  selected?: string;
 }
 
 interface MDFormRowProps extends BaseFormRowProps {
@@ -65,7 +65,6 @@ const FormRow = (props: FormRowProps) => {
     variant = "input",
   } = props;
 
-  const [selectValue, setselectValue] = useState<string>("");
   const placeholder = `Please enter ${children.toLowerCase()}`;
   let formElement = null;
   if (variant === "MD") {
@@ -80,14 +79,14 @@ const FormRow = (props: FormRowProps) => {
       />
     );
   } else if (variant === "select") {
-    const { data, disabled } = props as SelectFormRowProps;
+
+    const { data, disabled, selected, value } = props as SelectFormRowProps;
     formElement = (
       <Select
-        value={data[0] ?? selectValue}
+        value={value}
         name={name}
         disabled={disabled}
         onValueChange={(newValue) => {
-          setselectValue(newValue);
           onChange(newValue, name);
         }}
       >
