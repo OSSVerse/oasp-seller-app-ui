@@ -80,7 +80,7 @@ const FormRow = (props: FormRowProps) => {
     );
   } else if (variant === "select") {
 
-    const { data, disabled, selected, value } = props as SelectFormRowProps;
+    const { data, disabled, value } = props as SelectFormRowProps;
     formElement = (
       <Select
         value={value}
