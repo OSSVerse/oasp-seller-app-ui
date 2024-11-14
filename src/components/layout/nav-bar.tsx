@@ -18,6 +18,7 @@ import useAuthStore from "@/store/auth-store";
 import { useModal } from "@/store/modal-store";
 import LoginNavbar from "./login-navbar";
 
+
 const items = [
   {
     name: "My Dashboard",
@@ -33,7 +34,7 @@ const items = [
   },
   {
     name: "My Solution",
-    href: "/dashboard/my-solutions",
+    href: "/dashboard/my-projects",
     id: 7,
     isProtected: true,
   },
@@ -45,7 +46,7 @@ const items = [
   },
   {
     name: "Solutions",
-    href: "/solutions",
+    href: "/products",
     id: 3,
     isProtected: false,
   },
@@ -147,8 +148,18 @@ const NavBar = () => {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent >
-                  <DropdownMenuItem className="gap-2"> <AddIcon className="h-4 w-4" /> New Project</DropdownMenuItem>
-                  <DropdownMenuItem className="gap-2"> <AddIcon className="h-4 w-4" /> New ML Model</DropdownMenuItem>
+                  <DropdownMenuItem asChild className="gap-2">
+
+                    <Link to={'/dashboard/my-projects/create?type=project'}>
+                      <AddIcon className="h-4 w-4" />
+                      New Project
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="gap-2">
+                    <Link to={'/dashboard/my-projects/create?type=model'}>
+                      <AddIcon className="h-4 w-4" /> New ML Model
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
