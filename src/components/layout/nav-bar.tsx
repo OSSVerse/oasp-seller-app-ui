@@ -17,7 +17,7 @@ import NotificationButton from "@/components/common/notification-button";
 import useAuthStore from "@/store/auth-store";
 import { useModal } from "@/store/modal-store";
 import LoginNavbar from "./login-navbar";
-import { PATH } from "@/lib/path-constant";
+
 
 const items = [
   {
