@@ -31,6 +31,7 @@ import {
 import MLModelIcon from "@/components/icons/ml-model-icon";
 import { Span } from "@/components/ui/span";
 import { type Daum, useOrders } from "@/services/orders-service";
+import { cn } from "@/lib/utils";
 
 // const orders = [
 //   {
@@ -201,8 +202,8 @@ export const OrderCard = ({ order }: { order: Daum }) => {
 
 export const OrderListHeader = () => {
   return (
-    <div className="sm:w-[50rem] md:w-[60rem] xl:w-[80rem] 2xl:w-[90rem] bg-secondary rounded-lg p-4">
-      <div className="grid grid-cols-8">
+    <div className="w-full bg-secondary rounded-lg p-4">
+      <div className="grid grid-cols-8 gap-6 items-center">
         <div className="col-span-3">Order Project Name</div>
         <div>Transaction ID</div>
         <div>Assigned OASP</div>
@@ -219,8 +220,8 @@ export const OrderListItem = ({
   order: Daum;
 }) => {
   return (
-    <Link to={`/dashboard/orders/detail/${order._id}`}>
-      <Card className="sm:w-[50rem] md:w-[60rem] xl:w-[80rem] 2xl:w-[90rem] border rounded-lg">
+    <Link to={`/dashboard/orders/detail/${order._id}`} className="w-full">
+      <Card className="xl:w-full border rounded-lg">
         <CardContent className="text-sm space-y-2 p-4">
           <div className="grid grid-cols-8 gap-6 items-center">
             <div>
@@ -290,12 +291,12 @@ const MyOrdersList = ({
     <div className="flex flex-col gap-9">
       <div className="w-full flex gap-4">
         {showFilter && (
-          <div className="w-[283px] flex flex-col gap-4 ">
-            <div className="flex justify-between items-center gap-2 border p-2 rounded">
+          <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
+            <div className="flex justify-between items-center gap-2 border p-2 rounded bg-white">
               <span>Filter</span>
               <Button>Reset</Button>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded ">
+            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
               <Accordion
                 value="item-1"
                 type="single"
@@ -325,7 +326,7 @@ const MyOrdersList = ({
                 </AccordionItem>
               </Accordion>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded ">
+            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
               <Accordion
                 value="item-1"
                 type="single"
@@ -363,7 +364,7 @@ const MyOrdersList = ({
                 </AccordionItem>
               </Accordion>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded ">
+            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
               <Accordion
                 value="item-1"
                 type="single"
@@ -401,7 +402,7 @@ const MyOrdersList = ({
                 </AccordionItem>
               </Accordion>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded ">
+            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
               <Accordion
                 value="item-1"
                 type="single"
@@ -441,7 +442,19 @@ const MyOrdersList = ({
             </div>
           </div>
         )}
-        <div className="flex flex-wrap gap-7 justify-center mx-auto w-full">
+        <div
+          className={cn(`
+            ${!showGrid
+              ? "flex flex-col gap-4 w-full"
+              : `grid gap-[30px] justify-center mx-auto w-full
+            ${showFilter
+                ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+                : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              }
+            `
+            }
+          `)}
+        >
           {!showGrid && <OrderListHeader />}
           {data?.data.map((order) =>
             showGrid ? (

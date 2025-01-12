@@ -27,7 +27,7 @@ const breadcrumb = [
     url: PATH.DASHBOARD,
   },
   {
-    title: "My Projects",
+    title: "My Solution",
     url: PATH.MYPROJECTS,
   },
 ];
@@ -86,10 +86,11 @@ const MyProjectPage = () => {
 
   return (
     <div className="page-root flex flex-col gap-7">
+      <div className="absolute top-0 left-0 w-full h-[370px] -z-10 bg-neutral-100" />
       <AppBreadCrumb data={breadcrumb} />
       <div className="flex gap-4 flex-wrap md:flex-nowrap ">
         <div className="flex items-center gap-2">
-          <H1>My Projects</H1>
+          <H1>My Solution</H1>
           <Separator
             orientation="vertical"
             className="shrink-0 bg-border h-4 w-[3px] ml-4"
@@ -115,7 +116,7 @@ const MyProjectPage = () => {
           </form>
         </div>
       </div>
-      <div className="flex flex-col-reverse md:flex-row  justify-between gap-4 items-center  flex-wrap md:flex-nowrap">
+      <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap lg:flex-nowrap">
         <div className="flex items-center">
           <OrderTabs tabItems={TabItems} activeTabValue={activeTabValue} />
         </div>
@@ -140,8 +141,8 @@ const MyProjectPage = () => {
           <SortMenu />
         </div>
       </div>
-      <div>
-        <OrderList showFilter={!!showFilter}>
+      <div className="xl:w-[1406px] mx-auto">
+        <OrderList showFilter={!!showFilter} showGrid={showGrid}>
           {!showGrid && <OrderListHeader tableHeaders={tableHeaders} />}
           {marketplaceData?.filter((item) => item?.published === (activeTab === "published")).map((item) =>
             showGrid ? (
@@ -156,7 +157,7 @@ const MyProjectPage = () => {
           )}
         </OrderList>
       </div>
-    </div>
+    </div >
   );
 };
 

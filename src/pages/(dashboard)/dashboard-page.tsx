@@ -331,7 +331,7 @@ const RequestsInProgress = () => {
           ))}
           <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
         </ul>
-        <Button className="mt-4 w-fit">View All</Button>
+        <Button className="mt-4 w-fit" disabled={true}>View All</Button>
       </CardContent>
     </Card>
   );
@@ -448,7 +448,7 @@ const DashboardPage = () => {
                 title="Products Available"
                 value={956}
                 icon={<CartIcon />}
-                footer={<Button>Explore marketplace</Button>}
+                footer={<Button disabled={true}>Explore marketplace</Button>}
               />
             </div>
             <div className="col-span-10 sm:col-span-5 xl:col-span-3">
@@ -456,7 +456,7 @@ const DashboardPage = () => {
                 title="Products Produced"
                 value={12}
                 icon={<CartIcon />}
-                footer={<Button>Get Certified as OASP</Button>}
+                footer={<Button disabled={true}>Get Certified as OASP</Button>}
               />
             </div>
             <div className="col-span-10 xl:col-span-4">

@@ -22,12 +22,12 @@ const serviceOrderFilter = [
 
 const OrderFilter = () => {
   return (
-    <div className="w-full flex flex-col gap-4 ">
-      <div className="flex justify-between items-center gap-2 border p-2 rounded">
+    <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
+      <div className="flex justify-between items-center gap-2 border p-2 rounded bg-white">
         <span>Filter</span>
         <Button>Reset</Button>
       </div>
-      <div className="flex flex-col gap-2  border p-2 rounded ">
+      <div className="flex flex-col gap-2  border p-2 rounded  bg-white">
         <Accordion
           defaultValue="filter-type"
           type="single"
@@ -54,7 +54,7 @@ const OrderFilter = () => {
           </AccordionItem>
         </Accordion>
       </div>
-      <div className="flex flex-col gap-2  border p-2 rounded ">
+      <div className="flex flex-col gap-2  border p-2 rounded  bg-white">
         <Accordion
           defaultValue="filter-service-order"
           type="single"
@@ -90,7 +90,7 @@ const OrderFilter = () => {
         </Accordion>
       </div>
 
-      <div className="flex flex-col gap-2  border p-2 rounded ">
+      <div className="flex flex-col gap-2  border p-2 rounded  bg-white">
         <Accordion
           defaultValue="filter-pricing-range"
           type="single"
