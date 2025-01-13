@@ -14,7 +14,7 @@ import { PATH } from "@/lib/path-constant";
 import OrderList from "../components/order-list";
 import OrderTabs from "../components/order-tabs";
 import SortMenu from "../components/sort-menu";
-import { useOrders } from "@/services/orders-service";
+import { type Daum, useOrders } from "@/services/orders-service";
 import OrderListHeader from "../components/order-list-header";
 import OrderCard from "../components/order-card";
 import OrderListItem from "../components/order-list-item";
@@ -31,249 +31,6 @@ const breadcrumb = [
   },
 ];
 
-// const orders: Order[] = [
-//   {
-//     id: 1,
-//     title: "AutoSync Project",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business EFG",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 4, 2024",
-//     pricing: 600,
-//     status: "Pending",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 2,
-//     title: "Secure Version of OSS Library ABC",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business EFG",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 6, 2024",
-//     pricing: 400,
-//     status: "Pending",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "ML",
-//   },
-//   {
-//     id: 3,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business ABC",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 6, 2024",
-//     pricing: 400,
-//     status: "Pending",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 4,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business ABC",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 23, 2024",
-//     pricing: 1200,
-//     status: "Pending",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 5,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business XYZ",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 23, 2024",
-//     pricing: 1400,
-//     status: "Pending",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 6,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business XYZ",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 23, 2024",
-//     pricing: 600,
-//     status: "Completed",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 7,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business XYZ",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 6, 2024",
-//     pricing: 400,
-//     status: "Rejected",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 8,
-//     title: "Assessment Report for OSS Artifact",
-//     requestId: "12345",
-//     buyer: {
-//       title: "Business EFG",
-//       firstName: "John",
-//       lastName: "Appleseed",
-//       workMail: "johndoe@workmail.com",
-//       phone: "(123) 456-7890",
-//       payment: {
-//         method: "Paypal",
-//         status: "Verfied",
-//         amount: 1100,
-//       },
-//     },
-//     lastUpdated: "",
-//     deliveryDate: "Sept 6, 2024",
-//     pricing: 400,
-//     status: "Accepted",
-//     type: "PROJECT",
-//     serviceOrders: [
-//       {
-//         id: "servicesItems-3",
-//         name: "Certification",
-//         icon: "diploma",
-//         qty: 400,
-//       },
-//     ],
-//   },
-// ];
-
 const tableHeaders = [
   "Project Name",
   "Service Order",
@@ -281,9 +38,23 @@ const tableHeaders = [
   "Delivery Time",
 ];
 
+const initialFilters = {
+  "Service Order": [
+    { name: "All Service Offered", value: "all" },
+  ],
+  "Price Range": [],
+};
+
+const defaultInitialFilters = JSON.parse(JSON.stringify(initialFilters));
+
 const AssessmentOrderPage = () => {
+  const [filterContent, setFilterContent] = useState(defaultInitialFilters);
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const [activeFilters, setActiveFilters]: any = useState(JSON.parse(JSON.stringify(initialFilters)));
   const [searchParams, setSearchParams] = useSearchParams();
   const [isGrid, setIsGrid] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const showGrid = !!isGrid;
 
   const { data } = useOrders();
@@ -309,6 +80,45 @@ const AssessmentOrderPage = () => {
     { title: "Rejected", value: ORDER_STATUS.REJECTED, number: 0 },
     { title: "Completed", value: ORDER_STATUS.COMPLETED_ORDER, number: 0 },
   ]);
+
+  useEffect(() => {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const updatedFilterdata: any = { ...initialFilters }; // Start with the initial filter state
+
+    const minPrice = 0;
+    let maxPrice = Number.NEGATIVE_INFINITY;
+    if (data) {
+      // Loop through each data entry (in case there are multiple data entries)
+      data.data?.map((entry) => {
+        entry?.items?.map((item) => {
+          // Update the "Service Order" filter by using `productSubcategory1`
+          const serviceValue = item.productSubcategory1.toLowerCase().replace(/\s+/g, "-");
+
+          if (
+            !updatedFilterdata["Service Order"].some(
+              (service: { value: string; }) => service.value === serviceValue
+            )
+          ) {
+            updatedFilterdata["Service Order"].push({
+              name: item.productSubcategory1,
+              value: serviceValue,
+            });
+          }
+
+          // Update the price range
+          const priceValue = Number.parseInt(item.price.value);
+          maxPrice = Math.max(maxPrice, priceValue);
+        });
+      });
+      // Update the "Price Range" filter with the calculated min and max price
+      updatedFilterdata["Price Range"] = [
+        { min: minPrice, max: maxPrice, minPrice, maxPrice },
+      ];
+    }
+
+    setFilterContent(updatedFilterdata);
+  }, [data]);
+
   useEffect(() => {
     if (data) {
       const pendingLength = data.data.filter((order) => order.state === ORDER_STATUS.PENDING).length;
@@ -324,16 +134,59 @@ const AssessmentOrderPage = () => {
     }
   }, [data])
 
-  const filterData = useMemo(() => {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const filterData: any = useMemo(() => {
     if (data) {
-      return data.data.filter((order) => order?.state === activeTab);
+      return data.data
+        .filter((order) => order?.state === activeTab)
+        .filter((order) =>
+          order?.items[0]?.descriptor?.name
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
     }
     return [];
-  }, [data, activeTab]);
+  }, [data, activeTab, searchTerm]);
+
+  // Get checked services excluding "All Service Offered"
+  const checkedServices = activeFilters["Service Order"]
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    .filter((filter: { checked: any; value: string; }) => filter.checked && filter.value !== "all")
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    .map((filter: { name: any; }) => filter.name);
+
+  // Determine the filtered data
+  let filteredData = checkedServices.length > 0
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    ? filterData.filter((order: { items: any[]; }) => {
+      // Check if any item's productSubcategory1 matches a checked service
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      return order.items.some((item: { productSubcategory1: any; }) => checkedServices.includes(item.productSubcategory1));
+    })
+    : filterData;
+
+  if (activeFilters["Price Range"].length !== 0) {
+    // Get the price range from active filters
+    const { minPrice, maxPrice } = activeFilters["Price Range"][0];
+
+    // Filter the data based on the price range
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    filteredData = filteredData.map((group: { items: any[]; }) => {
+      const filteredItems = group.items.filter(
+        (item: { price: { value: number; }; }) => item.price.value >= minPrice && item.price.value <= maxPrice
+      );
+      return filteredItems.length > 0
+        ? { ...group, items: filteredItems }
+        : null;
+    }).filter((group: null) => group !== null);
+  }
 
   return (
-    <div className="page-root flex flex-col gap-7 mt-[-50px] relative">
-      <div className="h-[400px] absolute top-0 left-0 w-full z-[-1] bg-[#F6F6F6]" />
+    <div
+      data-testid="my-orders-page"
+      className="page-root flex flex-col gap-7 xl:pt-8"
+    >
+      <div className="absolute top-0 left-0 w-full h-[370px] -z-10 bg-neutral-100" />
       <AppBreadCrumb data={breadcrumb} />
       <div className="flex gap-4 flex-wrap md:flex-nowrap ">
         <div className="flex items-center gap-2">
@@ -342,7 +195,7 @@ const AssessmentOrderPage = () => {
             orientation="vertical"
             className="shrink-0 bg-border h-4 w-[3px] ml-4"
           />
-          <SwitchToMenu length={filterData?.length} />
+          <SwitchToMenu length={filteredData?.length} />
         </div>
         <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 ">
           <form className="ml-auto flex-1 flex  gap-3 w-full md:w-auto">
@@ -352,6 +205,8 @@ const AssessmentOrderPage = () => {
                 type="search"
                 placeholder="Search by Order/Business Name or #.."
                 className="pl-8 w-full md:w-[200px] lg:w-[400px]"
+                value={searchTerm} // Bind to searchTerm state
+                onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
               />
             </div>
           </form>
@@ -390,9 +245,9 @@ const AssessmentOrderPage = () => {
         </div>
       </div>
       <div>
-        <OrderList showFilter={!!showFilter}>
+        <OrderList showFilter={!!showFilter} showGrid={showGrid} filterContent={filterContent} setActiveFilters={setActiveFilters}>
           {!showGrid && <OrderListHeader tableHeaders={tableHeaders} />}
-          {filterData?.map((order) =>
+          {filteredData?.map((order: Daum) =>
             showGrid ? (
               <OrderCard order={order} key={order._id} />
             ) : (

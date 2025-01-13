@@ -10,7 +10,7 @@ export const OrderListHeader = ({
       <div
         className="grid gap-6 items-center"
         style={{
-          gridTemplateColumns: `auto repeat(${tableHeaders.length}, 200px)`,
+          gridTemplateColumns: `auto repeat(${tableHeaders.length}, 158px)`,
         }}
       >
         {tableHeaders.map((tableHeader, index) => (

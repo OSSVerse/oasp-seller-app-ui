@@ -26,7 +26,7 @@ const OrderListItem = ({
           <div
             className="grid gap-6 items-center"
             style={{
-              gridTemplateColumns: `auto repeat(${tableHeaders.length}, 200px)`,
+              gridTemplateColumns: `auto repeat(${tableHeaders.length}, 160px)`,
             }}
           >
             <div className="flex gap-10 items-center">
