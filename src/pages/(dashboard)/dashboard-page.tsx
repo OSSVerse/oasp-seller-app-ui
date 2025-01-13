@@ -430,15 +430,27 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="mb-4 grid grid-cols-10 gap-4">
-            <div className="col-span-10 sm:col-span-5 xl:col-span-3">
-              <PendingOrdersCard link="/dashboard/assessment-orders" title="Pending Assessment Order" state={ORDER_STATUS.PENDING} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
+            <div>
+              <PendingOrdersCard
+                link="/dashboard/assessment-orders"
+                title="Pending Assessment Order"
+                state={ORDER_STATUS.PENDING}
+              />
             </div>
-            <div className="col-span-10 sm:col-span-5 xl:col-span-3">
-              <PendingOrdersCard link="/dashboard/validation-orders" title="Pending Validation Order" state={ORDER_STATUS.PENDING} />
+            <div>
+              <PendingOrdersCard
+                link="/dashboard/validation-orders"
+                title="Pending Validation Order"
+                state={ORDER_STATUS.PENDING}
+              />
             </div>
-            <div className="col-span-10 sm:col-span-5 xl:col-span-3">
-              <PendingOrdersCard link="/dashboard/validation-orders" title="Completed Validation Order" state={ORDER_STATUS.COMPLETED_ORDER} />
+            <div>
+              <PendingOrdersCard
+                link="/dashboard/validation-orders"
+                title="Completed Validation Order"
+                state={ORDER_STATUS.COMPLETED_ORDER}
+              />
             </div>
           </div>
 
