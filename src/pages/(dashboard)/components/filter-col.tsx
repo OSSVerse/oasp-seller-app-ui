@@ -147,7 +147,7 @@ const OrderFilter = ({ filterContent, setActiveFilters }: { filterContent: any, 
                     {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
                     {filterItems.map((filter: any, index: number) => (
                       // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                      <div key={index}>
+                      <div key={index}  className="flex flex-col gap-4">
                         <div className="flex justify-between gap-2 items-center">
                           <Input
                             value={filter.minPrice}
