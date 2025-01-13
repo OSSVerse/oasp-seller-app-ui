@@ -46,11 +46,17 @@ export interface ServiceOrder {
 const OrderList = ({
   showFilter,
   children,
-  showGrid
+  showGrid,
+  filterContent,
+  setActiveFilters
 }: {
   showFilter: boolean;
   children: React.ReactNode;
   showGrid: boolean
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  filterContent: any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  setActiveFilters: any
 }) => {
   // const isProjectPage = location.pathname === PATH.MYPROJECTS;
   // const { data } = useOrders();
@@ -59,7 +65,7 @@ const OrderList = ({
     <div className="flex flex-col gap-9">
       <div className="w-full flex gap-[30px] items-start">
         {/* filter */}
-        {showFilter && <OrderFilter />}
+        {showFilter && <OrderFilter filterContent={filterContent} setActiveFilters={setActiveFilters}/>}
         {/* view mode */}
         <div className="space-y-4 w-full">
           <div

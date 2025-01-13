@@ -1,22 +1,21 @@
-import { useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
 
-const min = 0;
-const max = 5300;
-const from = 300;
-const to = 2000;
+interface PricingRangeProps {
+  min: number;
+  max: number;
+  value: [number, number];
+  onChange: (min: number, max: number) => void;
+}
 
-const PricingRange = () => {
-  const [values, setValues] = useState<number[]>([from, to]);
-
+const PricingRange: React.FC<PricingRangeProps> = ({ min, max, value, onChange }) => {
   const handleValueChange = (newValues: number[]) => {
-    setValues(newValues);
+    onChange(newValues[0], newValues[1]);
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <Slider.Root
-        value={values}
+        value={value}
         onValueChange={handleValueChange}
         min={min}
         max={max}
@@ -27,12 +26,12 @@ const PricingRange = () => {
           <Slider.Range className="absolute h-full rounded-full bg-black" />
         </Slider.Track>
         <Slider.Thumb
-          className="block size-5 rounded-[10px] bg-black shadow-[0_2px_10px] border-white border-4 shadow-blackA4 hover:bg-white focus:shadow-[0_0_0_5px] focus:shadow-blackA5 focus:outline-none"
-          aria-label="Volume"
+          className="block size-5 rounded-[10px] bg-black shadow-lg border-white border-4 focus:outline-none"
+          aria-label="Min"
         />
         <Slider.Thumb
-          className="block size-5 rounded-[10px] bg-black shadow-[0_2px_10px] border-white border-4 shadow-blackA4 hover:bg-white focus:shadow-[0_0_0_5px] focus:shadow-blackA5 focus:outline-none"
-          aria-label="Volume"
+          className="block size-5 rounded-[10px] bg-black shadow-lg border-white border-4 focus:outline-none"
+          aria-label="Max"
         />
       </Slider.Root>
     </div>
