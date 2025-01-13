@@ -79,6 +79,7 @@ const MyOrdersPage = () => {
   };
   return (
     <div className="page-root flex flex-col gap-7">
+      <div className="absolute top-0 left-0 w-full h-[370px] -z-10 bg-neutral-100" />
       <AppBreadCrumb data={breadcrumb} />
       <div className="flex gap-4 flex-wrap md:flex-nowrap ">
         <H1>My Orders</H1>
@@ -98,7 +99,7 @@ const MyOrdersPage = () => {
           </form>
         </div>
       </div>
-      <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap md:flex-nowrap">
+      <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap lg:flex-nowrap">
         <Tabs onValueChange={onChange} value={activeTab} className="w-full">
           <TabsList className="bg-transparent gap-0 md:gap-4">
             <TabItem title="All" badge={26} variant="secondary" value="" />

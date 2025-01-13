@@ -37,7 +37,7 @@ const OrderCard = ({ order }: { order: Daum }) => {
               )} */}
             </Badge>
             <div className="text-lg font-semibold ">
-              {order?.organization?.name}
+              {order?.items[0]?.descriptor?.name}
             </div>
             Request #{order?.billing?.tax_number} . {order?.billing?.phone}
           </CardTitle>

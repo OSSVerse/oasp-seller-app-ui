@@ -46,48 +46,42 @@ export interface ServiceOrder {
 const OrderList = ({
   showFilter,
   children,
+  showGrid,
+  filterContent,
+  setActiveFilters
 }: {
   showFilter: boolean;
   children: React.ReactNode;
+  showGrid: boolean
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  filterContent: any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  setActiveFilters: any
 }) => {
   // const isProjectPage = location.pathname === PATH.MYPROJECTS;
   // const { data } = useOrders();
 
   return (
     <div className="flex flex-col gap-9">
-      <div
-        className={cn(
-          "w-full",
-          showFilter && "grid grid-cols-[283px,auto] gap-9",
-        )}
-      >
+      <div className="w-full flex gap-[30px] items-start">
         {/* filter */}
-        {showFilter && <OrderFilter />}
+        {showFilter && <OrderFilter filterContent={filterContent} setActiveFilters={setActiveFilters}/>}
         {/* view mode */}
-        <div className="flex flex-wrap flex-1 gap-7 justify-center mx-auto w-full">
-          {/* {!showGrid && <OrderListHeader tableHeaders={tableHeaders} />}
-          {data?.data.map((order) =>
-            showGrid ? (
-              isProjectPage ? (
-                <ProjectCard order={order} key={order._id} />
-              ) : (
-                <OrderCard order={order} key={order._id} />
-              )
-            ) : isProjectPage ? (
-              <ProjectListItem
-                order={order}
-                key={order._id}
-                tableHeaders={tableHeaders}
-              />
-            ) : (
-              <OrderListItem
-                order={order}
-                key={order._id}
-                tableHeaders={tableHeaders}
-              />
-            ),
-          )} */}
-          {children}
+        <div className="space-y-4 w-full">
+          <div
+            className={cn(`
+                  ${!showGrid
+                ? "flex flex-col gap-4 w-full"
+                : `grid gap-[30px] justify-center mx-auto w-full
+                  ${showFilter
+                  ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                }
+                  `}
+              `)}
+          >
+            {children}
+          </div>
         </div>
       </div>
       {/* pagination */}

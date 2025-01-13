@@ -17,6 +17,7 @@ import NotificationButton from "@/components/common/notification-button";
 import useAuthStore from "@/store/auth-store";
 import { useModal } from "@/store/modal-store";
 import LoginNavbar from "./login-navbar";
+import { PATH } from "@/lib/path-constant";
 
 
 const items = [
@@ -38,30 +39,30 @@ const items = [
     id: 7,
     isProtected: true,
   },
-  {
-    name: "Platform",
-    href: "/platform",
-    id: 4,
-    isProtected: false,
-  },
-  {
-    name: "Solutions",
-    href: "/products",
-    id: 3,
-    isProtected: false,
-  },
-  {
-    name: "Resources",
-    href: "/resources",
-    id: 5,
-    isProtected: false,
-  },
-  {
-    name: "Company",
-    href: "/company",
-    id: 6,
-    isProtected: false,
-  },
+  // {
+  //   name: "Platform",
+  //   href: "/platform",
+  //   id: 4,
+  //   isProtected: false,
+  // },
+  // {
+  //   name: "Solutions",
+  //   href: "/products",
+  //   id: 3,
+  //   isProtected: false,
+  // },
+  // {
+  //   name: "Resources",
+  //   href: "/resources",
+  //   id: 5,
+  //   isProtected: false,
+  // },
+  // {
+  //   name: "Company",
+  //   href: "/company",
+  //   id: 6,
+  //   isProtected: false,
+  // },
 ];
 
 const NavBar = () => {
@@ -139,7 +140,7 @@ const NavBar = () => {
             <Search className="h-10 w-10 p-2 text-muted-foreground xl:hidden border rounded" />
 
             {isAuthenticated && (
-              <DropdownMenu >
+              <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
 
                   <Button variant="secondary" size="icon" className="rounded-full">
@@ -149,8 +150,7 @@ const NavBar = () => {
 
                 <DropdownMenuContent >
                   <DropdownMenuItem asChild className="gap-2">
-
-                    <Link to={'/dashboard/my-projects/create?type=project'}>
+                    <Link to={PATH.CREATE_MYPROJECTS}>
                       <AddIcon className="h-4 w-4" />
                       New Project
                     </Link>
