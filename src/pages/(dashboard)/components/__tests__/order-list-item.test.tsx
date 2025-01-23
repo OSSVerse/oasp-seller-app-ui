@@ -24,6 +24,7 @@ vi.mock("../ui/badge", () => ({
 }));
 
 vi.mock("../ui/button", () => ({
+    // biome-ignore lint/a11y/useButtonType: <explanation>
     Button: ({ children }) => <button>{children}</button>,
 }));
 
@@ -102,7 +103,7 @@ describe("OrderListItem Component", () => {
         );
 
         const link = screen.getByRole("link");
-        expect(link).toHaveAttribute("href", expect.stringContaining(`/order123`));
+        expect(link).toHaveAttribute("href", expect.stringContaining("/order123"));
     });
 
     test("handles missing order data gracefully", () => {

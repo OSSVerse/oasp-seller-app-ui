@@ -74,7 +74,7 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
             type="file"
             data-testid="file-input"
             hidden
-            id={"browse_" + ID}
+            id={`browse_${ID}`}
             onChange={handleFileChange}
             onClick={handleInputClick}
             accept={options.allowed}
@@ -86,7 +86,8 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
         <div className="bg-stone-100 p-3 rounded-md mt-3 flex items-center">
           <FileIcon className="h-5 w-5 text-stone-500" />
           {files.map((file, index) => (
-            <div key={index} className="flex ms-2 w-full justify-between">
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+<div key={index} className="flex ms-2 w-full justify-between">
               <div className="line-clamp-1">{file.name}</div>
               <XIcon
                 data-testid="x-icon"
@@ -99,6 +100,7 @@ const Uploader = ({ ID, options, onFilesSelected }: UploaderProps) => {
       ) : (
         <div className="mt-3 flex">
           {files.map((file, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             <div key={index} className="me-3">
               <div
                 className={`w-24 h-20 ${file.type !== "audio/mp3" &&

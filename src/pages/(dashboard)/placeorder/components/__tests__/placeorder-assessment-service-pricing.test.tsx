@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import AssessmentServicePricing from "../placeorder-assessment-service-pricing";
 import { MemoryRouter } from "react-router-dom";
@@ -21,6 +21,7 @@ describe("AssessmentServicePricing", () => {
         expect(screen.getByText(defaultProps.creator)).toBeInTheDocument();
 
         // Check if pricing info badges are rendered
+        // biome-ignore lint/complexity/noForEach: <explanation>
         defaultProps.pricing_overall_info.forEach((info) => {
             expect(screen.getByText(info)).toBeInTheDocument();
         });

@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import DeliveryDue from '../deliver-due';
-import AssessmentDoughnutChart from '../doughnut-chart';
 
 // Mock AssessmentDoughnutChart 组件
 vi.mock('../doughnut-chart', () => {

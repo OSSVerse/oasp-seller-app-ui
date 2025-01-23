@@ -4,7 +4,7 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
 };
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, } from '@testing-library/react';
 import PricingRange from '../pricing-range'; // Adjust the import path as necessary
 
 describe('PricingRange', () => {

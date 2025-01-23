@@ -1,6 +1,5 @@
 import { describe, it, beforeEach, expect, vi } from 'vitest';
 import { httpService } from '@/services/http-service';
-import { AUTH_STORAGE_TOKEN } from '@/lib/constant';
 import storage from '@/lib/storage-helper';
 
 // Mock the storage-helper module properly

@@ -10,6 +10,7 @@ vi.mock('react-router-dom', async () => {
         ...actual,
         useRouteError: vi.fn(),
         useSearchParams: vi.fn(),
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         isRouteErrorResponse: (error: any) => error?.status !== undefined,
     };
 });

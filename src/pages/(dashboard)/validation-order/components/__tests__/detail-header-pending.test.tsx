@@ -20,6 +20,7 @@ const mockOrder = {
 describe("DetailHeaderPending", () => {
     it("renders current status and upload button", () => {
         const mockOnOpen = vi.fn();
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         (useModal as any).mockReturnValue({ onOpen: mockOnOpen });
 
         render(
@@ -35,6 +36,7 @@ describe("DetailHeaderPending", () => {
 
     it("opens drawer when upload button is clicked", async () => {
         const mockOnOpen = vi.fn();
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         (useModal as any).mockReturnValue({ onOpen: mockOnOpen });
         const user = userEvent.setup();
 
@@ -58,6 +60,7 @@ describe("DetailHeaderPending", () => {
 
     it("renders separator between status and button", () => {
         const mockOnOpen = vi.fn();
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         (useModal as any).mockReturnValue({ onOpen: mockOnOpen });
 
         render(

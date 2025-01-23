@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import OrderDetailCard from '../order-detal-card';
-import { Daum } from '@/services/orders-service';
+import type { Daum } from '@/services/orders-service';
 import { vi } from 'vitest';
 
 vi.mock('./service-order-badge', () => ({
   __esModule: true,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   default: ({ serviceOrder }: { serviceOrder: any }) => (
     <div data-testid="service-order-badge">{serviceOrder.productSubcategory1}</div>
   ),

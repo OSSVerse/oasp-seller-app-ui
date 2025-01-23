@@ -23,12 +23,14 @@ describe("SubmitResponseDrawer", () => {
     vi.clearAllMocks();
 
     // Setup default mock implementations
-    (useModal as any).mockReturnValue({
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        (useModal as any).mockReturnValue({
       onOpen: vi.fn(),
       onClose: vi.fn(),
     });
     const mockUpdateCurrentStatus = vi.fn();
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     (useValidationOrder as any).mockReturnValue({
       currentStatus: "",
       updateCurrentStatus: mockUpdateCurrentStatus,

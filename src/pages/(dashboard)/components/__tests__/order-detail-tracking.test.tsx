@@ -1,7 +1,6 @@
 // OrderDetailTracking.test.tsx
 import { render, screen } from "@testing-library/react";
 import OrderDetailTracking from "../order-detail-tracking";
-import { Stage } from "@/components/ui/stage";
 
 describe("OrderDetailTracking", () => {
   const stages = [
@@ -12,8 +11,9 @@ describe("OrderDetailTracking", () => {
 
   it("renders all stages with correct status", () => {
     render(<OrderDetailTracking stages={stages} currentStatus="current" />);
-    
+
     // Check if each stage is rendered
+    // biome-ignore lint/complexity/noForEach: <explanation>
     stages.forEach((stage) => {
       expect(screen.getByText(stage.name)).toBeInTheDocument();
     });
@@ -21,9 +21,9 @@ describe("OrderDetailTracking", () => {
 
   it("applies correct variant to each stage", () => {
     render(<OrderDetailTracking stages={stages} currentStatus="current" />);
-    
+
     const stageElements = screen.getAllByTestId("stage");
-    
+
     // Check the variant for each stage
     expect(stageElements[0]).toHaveClass("border-black"); // completed
     expect(stageElements[1]).toHaveClass("text-white bg-black"); // current

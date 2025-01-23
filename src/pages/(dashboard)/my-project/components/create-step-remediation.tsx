@@ -34,7 +34,7 @@ const CreateStepRemediation = ({
     onOpen("confirmationDialog", {
       confirmationDialog: {
         title: "Error",
-        content: `Ops something went wrong`,
+        content: "Ops something went wrong",
         confirmLabel: "Close",
         onClose: () => {
           onClose();

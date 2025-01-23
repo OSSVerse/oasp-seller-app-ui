@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import PlaceOrderCheckList from "../placeorder-check-list";
-import type { ServiceOrder } from "../../../components/order-list";
 import { MemoryRouter } from "react-router-dom";
 import type { Daum } from "@/services/orders-service";
 

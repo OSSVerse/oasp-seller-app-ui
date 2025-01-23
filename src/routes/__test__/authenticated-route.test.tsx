@@ -14,7 +14,8 @@ describe('ProtectedRoute', () => {
 
     it('renders Outlet when user is authenticated', () => {
         // Mock the useAuthStore to return isAuthenticated as true
-        vi.mocked(useAuthStore).mockReturnValue({ isAuthenticated: true } as any)
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+                vi.mocked(useAuthStore).mockReturnValue({ isAuthenticated: true } as any)
 
         const { getByText } = render(
             <MemoryRouter initialEntries={['/protected']}>

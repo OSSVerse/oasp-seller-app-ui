@@ -8,6 +8,7 @@ import { vi } from "vitest";
 vi.mock("@/lib/utils", () => ({
     getDateInTimeZone: vi.fn(),
     getTimeZoneName: vi.fn(),
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     cn: (...inputs: any) => inputs.join(' '), // Add mock implementation for cn
 }));
 

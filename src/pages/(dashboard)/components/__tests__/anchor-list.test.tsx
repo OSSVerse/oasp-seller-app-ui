@@ -20,7 +20,7 @@ describe('AnchorLists Component', () => {
     );
 
     // Assert that all anchor list items are rendered
-    mockAnchorLists.forEach((item) => {
+    mockAnchorLists.map((item) => {
       expect(screen.getByText(item)).toBeInTheDocument();
     });
 

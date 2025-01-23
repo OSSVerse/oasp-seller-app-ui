@@ -27,7 +27,8 @@ describe("PlaceOrderPage", () => {
 
   beforeEach(() => {
     // Setup the mock implementation for useMarketPlaceProducts
-    (useMarketPlaceProducts as any).mockReturnValue({
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        (useMarketPlaceProducts as any).mockReturnValue({
       data: [mockProduct],
     });
   });

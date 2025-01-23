@@ -8,9 +8,9 @@ import ListTable, {
 import { ScrollArea } from "../../ui/scroll-area";
 
 global.ResizeObserver = class {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe() { }
+  unobserve() { }
+  disconnect() { }
 };
 
 it("renders ScrollArea without crashing", () => {
@@ -50,6 +50,7 @@ describe("ListTable component", () => {
     expect(screen.getByText("Name")).toBeInTheDocument();
     expect(screen.getByText("Location Add")).toBeInTheDocument();
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     mockData.forEach((data) => {
       expect(screen.getByText(data.name)).toBeInTheDocument();
       expect(screen.getByText(data.location_add)).toBeInTheDocument();
@@ -61,6 +62,7 @@ describe("ListTable component", () => {
 
     expect(screen.queryByText("Location Add")).not.toBeInTheDocument();
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     mockData.forEach((data) => {
       expect(screen.getByText(data.name)).toBeInTheDocument();
       expect(screen.queryByText(data.location_add)).not.toBeInTheDocument();

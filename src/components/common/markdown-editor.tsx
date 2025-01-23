@@ -119,9 +119,11 @@ const PreviewEditModeSwitch = ({
   const { preview, dispatch } = useContext(EditorContext);
   const click = () => {
     if (preview === "edit") {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       dispatch!({ preview: "preview" });
       setToolbarVisible(false);
     } else {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       dispatch!({ preview: "edit" });
       setToolbarVisible(true);
     }

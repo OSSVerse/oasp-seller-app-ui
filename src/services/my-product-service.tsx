@@ -50,11 +50,13 @@ export type Product = {
   productName: string;
   MRP: number;
   purchasePrice?: number;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   timing: any[];
   productCategory: string;
   productSubcategory1: string;
   longDescription: string;
   description: string;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   images: any[];
   published: boolean;
   createdBy: string;

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import ServiceOrderBadge from '../service-order-badge';
-import { Item } from '@/services/orders-service'; // Adjust the import path as necessary
+import type { Item } from '@/services/orders-service'; // Adjust the import path as necessary
 
 describe('ServiceOrderBadge', () => {
   it('renders the badge with the correct text', () => {
