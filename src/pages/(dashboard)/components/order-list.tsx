@@ -1,10 +1,7 @@
-import OrderPagination from "./order-pagination";
 import OrderFilter from "./filter-col";
 import { cn } from "@/lib/utils";
-// import { PATH } from "@/lib/path-constant";
-// import ProjectCard from "./project-card";
-// import ProjectListItem from "./project-list-item";
-// import { useOrders } from "@/services/orders-service";
+import { Separator } from "@/components/ui/separator";
+import PagePagination from "@/components/common/page-pagination";
 
 export interface Order {
   id: number;
@@ -48,18 +45,33 @@ const OrderList = ({
   children,
   showGrid,
   filterContent,
-  setActiveFilters
+  setActiveFilters,
+  getFeaturedPageItems,
+  onFeaturedPageChange,
+  featuredCurrentPage,
+  products
 }: {
   showFilter: boolean;
   children: React.ReactNode;
-  showGrid: boolean
+  showGrid: boolean;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  filterContent: any
+  filterContent: any;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  setActiveFilters: any
+  setActiveFilters: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  getFeaturedPageItems: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  onFeaturedPageChange: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  featuredCurrentPage: any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  products: any
 }) => {
-  // const isProjectPage = location.pathname === PATH.MYPROJECTS;
-  // const { data } = useOrders();
+  
+  const featuredPageCount = Math.ceil(products ? products?.length / 6 : 0);
+  const startIndex = (featuredCurrentPage - 1) * 6; // The starting index for the current page
+  const endIndex = startIndex + getFeaturedPageItems.length; // The actual end index for the current page
+
 
   return (
     <div className="flex flex-col gap-9">
@@ -85,7 +97,25 @@ const OrderList = ({
         </div>
       </div>
       {/* pagination */}
-      <OrderPagination />
+      <div className="sm:flex space-y-4 justify-between items-center w-full">
+        <div className="flex items-center gap-2 w-96">
+          <span className="text-xs text-gray-700 dark:text-gray-300">
+            Showing {startIndex + 1} - {endIndex} of {products.length}
+          </span>
+          <Separator
+            orientation="vertical"
+            className="h-4 w-[3px] bg-gray-400 dark:bg-gray-600"
+          />
+          <span className="text-xs text-gray-700 dark:text-gray-300">6 per page</span>
+        </div>
+        <div>
+          <PagePagination
+            currentPage={featuredCurrentPage}
+            totalPages={featuredPageCount}
+            onPageChange={onFeaturedPageChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };

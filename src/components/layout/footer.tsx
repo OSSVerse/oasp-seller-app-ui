@@ -15,38 +15,8 @@ const Footer = () => {
         </div>
         <div className="flex flex-wrap w-1/2 justify-between gap-10">
           <div className="flex flex-col gap-4">
-            <Link to="/platform" className="hover:underline">
-              Platform
-            </Link>
-            <Link to="/solutions" className="hover:underline">
+            <Link to="/dashboard/my-projects" className="hover:underline">
               Solutions
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <Link to="/resources" className="hover:underline">
-              Resources
-            </Link>
-            <Link to="/company" className="hover:underline">
-              Company
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <Link to="/book-a-demo" className="hover:underline">
-              Book a Demo
-            </Link>
-            <Link to="/explore-marketplace" className="hover:underline">
-              Explore Marketplace
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <Link to="/get-started" className="hover:underline">
-              Get Started
-            </Link>
-            <Link to="/sign-in" className="hover:underline">
-              Sign in
             </Link>
           </div>
         </div>

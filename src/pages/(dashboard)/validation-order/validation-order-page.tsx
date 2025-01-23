@@ -53,6 +53,7 @@ const ValidationOrderPage = () => {
   const [isGrid, setIsGrid] = useState(false);
   const showGrid = !!isGrid;
   const [searchTerm, setSearchTerm] = useState("");
+  const featuredCurrentPage = Number(searchParams.get("mpage")) || 1;
 
   const showFilter = searchParams.get("filter") || "";
 
@@ -176,6 +177,16 @@ const ValidationOrderPage = () => {
     }).filter((group: null) => group !== null);
   }
 
+  const onFeaturedPageChange = (page: number) => {
+    searchParams.set("mpage", page.toString());
+    setSearchParams(searchParams);
+  };
+
+  const getFeaturedPageItems = filteredData.slice(
+    (featuredCurrentPage - 1) * 6,
+    featuredCurrentPage * 6
+  );
+
   return (
     <div className="page-root flex flex-col gap-7">
       <div className="absolute top-0 left-0 w-full h-[370px] -z-10 bg-neutral-100" />
@@ -237,9 +248,9 @@ const ValidationOrderPage = () => {
         </div>
       </div>
       <div>
-        <OrderList showFilter={!!showFilter} showGrid={showGrid} filterContent={filterContent} setActiveFilters={setActiveFilters}>
+        <OrderList showFilter={!!showFilter} showGrid={showGrid} filterContent={filterContent} getFeaturedPageItems={getFeaturedPageItems} setActiveFilters={setActiveFilters} onFeaturedPageChange={onFeaturedPageChange} featuredCurrentPage={featuredCurrentPage} products={filteredData}>
           {!showGrid && <OrderListHeader tableHeaders={tableHeaders} />}
-          {filteredData?.map((order: Daum) =>
+          {getFeaturedPageItems?.map((order: Daum) =>
             showGrid ? (
               <div data-testid="grid-view" key={order._id}>
                 <OrderCard order={order} key={order._id} />

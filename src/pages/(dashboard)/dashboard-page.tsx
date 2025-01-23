@@ -80,50 +80,6 @@ const StatsCard = ({
   );
 };
 
-// const FinancialStatsCard = () => {
-//   const data = {
-//     labels: Array.from({ length: 30 }, (_, i) => i + 1), // Assuming data for 30 days
-//     datasets: [
-//       {
-//         label: 'Daily Spend',
-//         data: [/* Array of daily spend values */],
-//         fill: true,
-//         backgroundColor: 'rgba(211, 211, 211, 0.5)',
-//         borderColor: 'rgba(0, 0, 0, 0.1)',
-//       }
-//     ]
-//   };
-
-//   const options = {
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     },
-//     plugins: {
-//       legend: {
-//         display: false
-//       }
-//     },
-//     maintainAspectRatio: false
-//   };
-
-//   return (
-//     <Card>
-//       <CardContent>
-//         <Typography className="text-lg font-bold">Spend (this month)</Typography>
-//         <Typography className="text-2xl font-bold">₹120,250</Typography>
-//         <Typography className="text-sm" muted>+2.5% from last month</Typography>
-//         <div style={{ height: '100px' }}>
-//           <Line data={data} options={options} />
-//         </div>
-//         <Typography className="text-lg font-bold mt-4">Total Revenue</Typography>
-//         <Typography className="text-xl">₹1,322,330</Typography>
-//       </CardContent>
-//     </Card>
-//   );
-// }
-
 const OrdersCard = () => {
   const getOrderCard = (
     title: string,
