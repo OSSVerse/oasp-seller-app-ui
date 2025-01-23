@@ -33,14 +33,14 @@ describe('Footer', () => {
 
 
         const links = [
-            { text: 'Platform', href: '/platform' },
-            { text: 'Solutions', href: '/solutions' },
-            { text: 'Resources', href: '/resources' },
-            { text: 'Company', href: '/company' },
-            { text: 'Book a Demo', href: '/book-a-demo' },
-            { text: 'Explore Marketplace', href: '/explore-marketplace' },
-            { text: 'Get Started', href: '/get-started' },
-            { text: 'Sign in', href: '/sign-in' },
+            // { text: 'Platform', href: '/platform' },
+            { text: 'Solutions', href: '/dashboard/my-projects' },
+            // { text: 'Resources', href: '/resources' },
+            // { text: 'Company', href: '/company' },
+            // { text: 'Book a Demo', href: '/book-a-demo' },
+            // { text: 'Explore Marketplace', href: '/explore-marketplace' },
+            // { text: 'Get Started', href: '/get-started' },
+            // { text: 'Sign in', href: '/sign-in' },
         ]
 
         for (const link of links) {

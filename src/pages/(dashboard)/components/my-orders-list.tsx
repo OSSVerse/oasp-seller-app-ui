@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,102 +19,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import MLModelIcon from "@/components/icons/ml-model-icon";
 import { Span } from "@/components/ui/span";
-import { type Daum, useOrders } from "@/services/orders-service";
+import type { Daum } from "@/services/orders-service";
 import { cn } from "@/lib/utils";
-
-// const orders = [
-//   {
-//     id: 1,
-//     title: "Secure Version of OSS Library ABC",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "DevOp Solution",
-//     deliveryDate: "",
-//     status: "Pending Acceptance",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 2,
-//     title: "Secure Version of OSS Library ABC",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "DevOp Solution",
-//     deliveryDate: "",
-//     status: "Pending Acceptance",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 3,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "Tocomo",
-//     deliveryDate: "Sept 23, 2024",
-//     status: "Work in Progress",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 4,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "Tocomo",
-//     deliveryDate: "Sept 23, 2024",
-//     status: "Work in Progress",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 5,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "InnoTech",
-//     deliveryDate: "Sept 23, 2024",
-//     status: "Work in Progress",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 6,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "InnoTech",
-//     deliveryDate: "Sept 23, 2024",
-//     status: "Work in Progress",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 7,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "OpenFort",
-//     deliveryDate: "Sept 1, 2024",
-//     status: "Delivered (Completed)",
-//     type: "PROJECT",
-//   },
-//   {
-//     id: 8,
-//     title: "Assessment Report for OSS Artifact",
-//     lastUpdated: "today",
-//     transactionID: "#TX12345",
-//     assignedOASP: "GreenHill",
-//     deliveryDate: "Sept 1, 2024",
-//     status: "Delivered (Completed)",
-//     type: "PROJECT",
-//   },
-// ];
+import { useEffect, useState } from "react";
+import PagePagination from "@/components/common/page-pagination";
 
 const getSpanVariant = (status: string) => {
   let variant:
@@ -137,6 +47,141 @@ const getSpanVariant = (status: string) => {
       break;
   }
   return variant;
+};
+
+// Define types for the filter content
+interface FilterOption {
+  value: string;
+  checked: boolean;
+  disabled: boolean;
+  name: string;
+}
+
+interface FilterContent {
+  [category: string]: FilterOption[];
+}
+
+interface DynamicAccordionProps {
+  filterContent: FilterContent;
+  setActiveFilters: (filters: FilterContent) => void;
+}
+
+const DynamicAccordion = ({ filterContent, setActiveFilters }: DynamicAccordionProps) => {
+  const [filters, setFilters] = useState<FilterContent>(filterContent);
+
+  // Initialize filters on content change
+  useEffect(() => {
+    const initializeFilters = (content: FilterContent): FilterContent => {
+      const updatedFilters: FilterContent = {};
+      for (const [key, options] of Object.entries(content)) {
+        updatedFilters[key] = options.map((filter) => ({
+          ...filter,
+          checked: filter.value === "all",
+          disabled: filter.value === "all",
+        }));
+      }
+      return updatedFilters;
+    };
+
+    setFilters(initializeFilters(filterContent));
+  }, [filterContent]);
+
+  // Sync active filters with parent state
+  useEffect(() => {
+    setActiveFilters(filters);
+  }, [filters, setActiveFilters]);
+
+  // Handle filter reset
+  const handleReset = () => {
+    setFilters((prevFilters) => {
+      const resetFilters: FilterContent = {};
+      for (const [key, options] of Object.entries(prevFilters)) {
+        resetFilters[key] = options.map((filter) => ({
+          ...filter,
+          checked: filter.value === "all",
+          disabled: filter.value === "all",
+        }));
+      }
+      return resetFilters;
+    });
+  };
+
+  // Handle checkbox change
+  const handleCheckboxChange = (category: string, value: string) => {
+    setFilters((prevFilters) => {
+      const updatedCategory = prevFilters[category].map((filter) => {
+        if (filter.value === value) {
+          return { ...filter, checked: !filter.checked };
+        }
+        if (filter.value === "all") {
+          return { ...filter, checked: false };
+        }
+        return filter;
+      });
+
+      // If no filters are selected, re-enable "All"
+      const anyChecked = updatedCategory.some((filter) => filter.value !== "all" && filter.checked);
+      if (!anyChecked) {
+        return {
+          ...prevFilters,
+          [category]: updatedCategory.map((filter) =>
+            filter.value === "all" ? { ...filter, checked: true, disabled: true } : { ...filter, checked: false }
+          ),
+        };
+      }
+
+      return {
+        ...prevFilters,
+        [category]: updatedCategory,
+      };
+    });
+  };
+
+  return (
+    <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
+      <div className="flex justify-between items-center gap-2 border p-2 rounded bg-white">
+        <span>Filter</span>
+        <Button onClick={handleReset}>Reset</Button>
+      </div>
+      {Object.entries(filters).map(([category, options]) => (
+        <div className="flex flex-col gap-2 border p-2 rounded bg-white" key={category}>
+          <Accordion value={category} type="single" collapsible className="w-full border-none">
+            <AccordionItem value={category} className="border-none">
+              <AccordionTrigger>{category}</AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-4">
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="search"
+                    placeholder={`Search ${category.toLowerCase()}...`}
+                    className="pl-8 w-full text-xs"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  {options.map((filter) => (
+                    <div className="flex items-center p-1 gap-2" key={filter.value}>
+                      <Checkbox
+                        id={`filter-${filter.value}`}
+                        checked={filter.checked}
+                        disabled={filter.disabled}
+                        onCheckedChange={() => handleCheckboxChange(category, filter.value)}
+                      />
+                      <label
+                        htmlFor={`filter-${filter.value}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {filter.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export const OrderCard = ({ order }: { order: Daum }) => {
@@ -266,182 +311,35 @@ export const OrderListItem = ({
 const MyOrdersList = ({
   showFilter,
   showGrid,
+  filterContent,
+  setActiveFilters,
+  getFeaturedPageItems,
+  onFeaturedPageChange,
+  featuredCurrentPage,
+  products
 }: {
   showFilter: boolean;
   showGrid: boolean;
+  setActiveFilters: (filters: FilterContent) => void;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  filterContent: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  getFeaturedPageItems: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  onFeaturedPageChange: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  featuredCurrentPage: any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  products: any
 }) => {
-  const typeFilter = ["All Type", "Project", "ML Model"];
-  const serviceOrderFilter = [
-    "All Service Offer",
-    "Assessment",
-    "Attestation",
-    "Certification",
-    "Redemetion",
-  ];
-  const oaspFilter = [
-    "All OASPs",
-    "DevOp Solution",
-    "OpenFort",
-    "GreenHill",
-    "Tocomo",
-  ];
-  const { data } = useOrders();
-  const categoryFilter = ["All Categories", "Cat A", "Cat B", "Cat C", "Cat D"];
+  const featuredPageCount = Math.ceil(products ? products?.length / 6 : 0);
+  const startIndex = (featuredCurrentPage - 1) * 6; // The starting index for the current page
+  const endIndex = startIndex + getFeaturedPageItems.length; // The actual end index for the current page
+
   return (
     <div className="flex flex-col gap-9">
       <div className="w-full flex gap-4">
-        {showFilter && (
-          <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
-            <div className="flex justify-between items-center gap-2 border p-2 rounded bg-white">
-              <span>Filter</span>
-              <Button>Reset</Button>
-            </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
-              <Accordion
-                value="item-1"
-                type="single"
-                collapsible
-                className="w-full  active:h-[14.88rem] border-none"
-              >
-                <AccordionItem value="item-1" className="border-none">
-                  <AccordionTrigger>Type</AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="flex flex-col gap-2">
-                      {typeFilter.map((filter) => (
-                        <div
-                          className="flex items-center p-1 gap-2"
-                          key={filter}
-                        >
-                          <Checkbox />
-                          <label
-                            htmlFor="terms"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {filter}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
-              <Accordion
-                value="item-1"
-                type="single"
-                collapsible
-                className="w-full  active:h-[14.88rem] border-none"
-              >
-                <AccordionItem value="item-1" className="border-none">
-                  <AccordionTrigger>Service Order</AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="relative">
-                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="search"
-                        placeholder="Search service Offer..."
-                        className="pl-8 w-full text-xs"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      {serviceOrderFilter.map((filter) => (
-                        <div
-                          className="flex items-center p-1 gap-2"
-                          key={filter}
-                        >
-                          <Checkbox />
-                          <label
-                            htmlFor="terms"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {filter}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
-              <Accordion
-                value="item-1"
-                type="single"
-                collapsible
-                className="w-full  active:h-[14.88rem] border-none"
-              >
-                <AccordionItem value="item-1" className="border-none">
-                  <AccordionTrigger>Assigned OASP</AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="relative">
-                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="search"
-                        placeholder="Search OASP..."
-                        className="pl-8 w-full text-xs"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      {oaspFilter.map((filter) => (
-                        <div
-                          className="flex items-center p-1 gap-2"
-                          key={filter}
-                        >
-                          <Checkbox />
-                          <label
-                            htmlFor="terms"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {filter}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
-              <Accordion
-                value="item-1"
-                type="single"
-                collapsible
-                className="w-full  active:h-[14.88rem] border-none"
-              >
-                <AccordionItem value="item-1" className="border-none">
-                  <AccordionTrigger>Categories</AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="relative">
-                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="search"
-                        placeholder="Search categories..."
-                        className="pl-8 w-full text-xs"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      {categoryFilter.map((filter) => (
-                        <div
-                          className="flex items-center p-1 gap-2"
-                          key={filter}
-                        >
-                          <Checkbox />
-                          <label
-                            htmlFor="terms"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {filter}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-        )}
+        {showFilter && <DynamicAccordion filterContent={filterContent} setActiveFilters={setActiveFilters} />}
         <div
           className={cn(`
             ${!showGrid
@@ -456,7 +354,7 @@ const MyOrdersList = ({
           `)}
         >
           {!showGrid && <OrderListHeader />}
-          {data?.data.map((order) =>
+          {getFeaturedPageItems?.map((order: Daum) =>
             showGrid ? (
               <OrderCard order={order} key={order._id} />
             ) : (
@@ -465,39 +363,24 @@ const MyOrdersList = ({
           )}
         </div>
       </div>
-      <div className="flex justify-between 'items-center w-full">
-        <div className="flex items-center  gap-2 w-96">
-          <span className="text-xs ">Showing 1-20 of 100</span>{" "}
-          <Separator orientation="vertical" className="h-4 w-[3px]" />
-          <span className="text-xs ">10 per page</span>
+
+      <div className="sm:flex space-y-4 justify-between items-center w-full">
+        <div className="flex items-center gap-2 w-96">
+          <span className="text-xs text-gray-700 dark:text-gray-300">
+            Showing {startIndex + 1} - {endIndex} of {products.length}
+          </span>
+          <Separator
+            orientation="vertical"
+            className="h-4 w-[3px] bg-gray-400 dark:bg-gray-600"
+          />
+          <span className="text-xs text-gray-700 dark:text-gray-300">6 per page</span>
         </div>
         <div>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#">
-                  <ChevronLeft className="h-4 w-4" />
-                </PaginationPrevious>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <PagePagination
+            currentPage={featuredCurrentPage}
+            totalPages={featuredPageCount}
+            onPageChange={onFeaturedPageChange}
+          />
         </div>
       </div>
     </div>

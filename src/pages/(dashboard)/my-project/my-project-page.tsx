@@ -144,6 +144,8 @@ const MyProjectPage = () => {
   const showFilter = searchParams.get("filter") || "";
 
   const activeTab = searchParams.get("state") ?? activeTabValue;
+  const featuredCurrentPage = Number(searchParams.get("mpage")) || 1;
+
 
   const onFilterChange = (value: string) => {
     if (value) {
@@ -164,6 +166,16 @@ const MyProjectPage = () => {
   if (isMarketplaceError) {
     return <div>Error loading products</div>;
   }
+
+  const onFeaturedPageChange = (page: number) => {
+    searchParams.set("mpage", page.toString());
+    setSearchParams(searchParams);
+  };
+
+  const getFeaturedPageItems = filteredData?.slice(
+    (featuredCurrentPage - 1) * 6,
+    featuredCurrentPage * 6
+  );
 
   return (
     <div className="page-root flex flex-col gap-7">
@@ -225,9 +237,9 @@ const MyProjectPage = () => {
         </div>
       </div>
       <div className="xl:w-[1406px] mx-auto">
-        <OrderList showFilter={!!showFilter} showGrid={showGrid} filterContent={filterContent} setActiveFilters={setActiveFilters}>
-          {!showGrid && <OrderListHeader tableHeaders={tableHeaders} />}
-          {filteredData?.filter((item) => item?.published === (activeTab === "published")).map((item) =>
+        <OrderList showFilter={!!showFilter} showGrid={showGrid} filterContent={filterContent} getFeaturedPageItems={getFeaturedPageItems} setActiveFilters={setActiveFilters} onFeaturedPageChange={onFeaturedPageChange} featuredCurrentPage={featuredCurrentPage} products={filteredData}>
+          {!showGrid && <OrderListHeader tableHeaders={tableHeaders} sideCSS={'200px'}/>}
+          {getFeaturedPageItems?.filter((item) => item?.published === (activeTab === "published")).map((item) =>
             showGrid ? (
               <ProjectCard order={item} key={item._id} />
             ) : (

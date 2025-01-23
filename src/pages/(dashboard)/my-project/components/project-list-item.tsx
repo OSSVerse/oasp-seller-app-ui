@@ -43,10 +43,6 @@ const ProjectListItem = ({
             </div>
             <div className="flex flex-wrap gap-3">
               {order?.services.map((service) => (
-                // <ServiceOrderBadge
-                //   key={serviceOrder.name}
-                //   serviceOrder={serviceOrder}
-                // />
                 <Badge
                   variant={"secondary"}
                   key={service.productSubcategory1}
