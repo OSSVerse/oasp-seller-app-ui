@@ -120,7 +120,8 @@ const mockOrders = {
 describe("ValidationOrderPage", () => {
     beforeEach(() => {
         // Setup default mock implementation
-        (useOrders as any).mockReturnValue({ data: mockOrders.data });
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+                (useOrders as any).mockReturnValue({ data: mockOrders.data });
     });
 
     it("renders the page title correctly", () => {

@@ -15,7 +15,8 @@ const MyProjectTAVOSS = ({ tavoss }: Props) => {
             key={item}
             className="mix-blend-luminosity bg-stone-100 p-4 flex justify-center"
           >
-            <img src={"/" + item + ".svg"} />
+            {/* biome-ignore lint/a11y/useAltText: <explanation> */}
+            <img src={`/${item}.svg`} />
           </div>
         ))}
       </div>

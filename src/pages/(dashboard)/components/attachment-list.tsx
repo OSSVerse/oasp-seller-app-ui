@@ -24,6 +24,7 @@ export const renderAttachment = (attachment: IAttachment) => {
       );
     case "image":
       return (
+        // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
         <img
           className="w-full h-full object-contain"
           src={source}
@@ -33,6 +34,9 @@ export const renderAttachment = (attachment: IAttachment) => {
       );
     case "video":
       return (
+        // biome-ignore lint/a11y/useValidAriaRole: <explanation>
+        // biome-ignore lint/a11y/useMediaCaption: <explanation>
+        // biome-ignore lint/a11y/noInteractiveElementToNoninteractiveRole: <explanation>
         <video role="video" controls className="w-full h-full object-contain">
           <source src={source} type="video/mp4" />
           Your browser does not support the video tag.

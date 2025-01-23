@@ -34,7 +34,8 @@ vi.mock("react-chartjs-2", () => ({
 describe("DashboardPage", () => {
     beforeEach(() => {
         // Mock the useOrders hook with default data
-        (useOrders as any).mockReturnValue({
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+                (useOrders as any).mockReturnValue({
             data: {
                 data: [
                     {

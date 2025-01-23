@@ -30,16 +30,12 @@ const MyProjectRemediation = ({
 }: Props) => {
   const thridPartyRemediaiton = {
     labels: [
-      REMEDIATION_STATUS.OUTDATED +
-        "      " +
-        third_party_remediation.filter(
+      `${REMEDIATION_STATUS.OUTDATED}      ${third_party_remediation.filter(
           (item) => item.status === REMEDIATION_STATUS.OUTDATED,
-        ).length,
-      REMEDIATION_STATUS.UPDATED +
-        "      " +
-        third_party_remediation.filter(
+        ).length}`,
+      `${REMEDIATION_STATUS.UPDATED}      ${third_party_remediation.filter(
           (item) => item.status === REMEDIATION_STATUS.UPDATED,
-        ).length,
+        ).length}`,
     ],
     datasets: [
       {
@@ -61,21 +57,15 @@ const MyProjectRemediation = ({
 
   const vulnerabilityRemediaiton = {
     labels: [
-      REMEDIATION_STATUS.UNRESOLVE +
-        "      " +
-        vulnerability_remediation.filter(
+      `${REMEDIATION_STATUS.UNRESOLVE}      ${vulnerability_remediation.filter(
           (item) => item.status === REMEDIATION_STATUS.UNRESOLVE,
-        ).length,
-      REMEDIATION_STATUS.INPROGRESS +
-        "      " +
-        vulnerability_remediation.filter(
+        ).length}`,
+      `${REMEDIATION_STATUS.INPROGRESS}      ${vulnerability_remediation.filter(
           (item) => item.status === REMEDIATION_STATUS.INPROGRESS,
-        ).length,
-      REMEDIATION_STATUS.RESOLVED +
-        "      " +
-        vulnerability_remediation.filter(
+        ).length}`,
+      `${REMEDIATION_STATUS.RESOLVED}      ${vulnerability_remediation.filter(
           (item) => item.status === REMEDIATION_STATUS.RESOLVED,
-        ).length,
+        ).length}`,
     ],
     datasets: [
       {

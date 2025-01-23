@@ -11,6 +11,7 @@ export interface Daum {
   billing: Billing;
   items: Item[];
   quote: Quote;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   fulfillments: any[];
   payment: Payment;
   state: string;
@@ -36,6 +37,7 @@ export interface Item {
   price: Price;
   category_id: string;
   quantity: Quantity;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   details: any;
   longDescription: string;
   productSubcategory1: string;
@@ -122,7 +124,9 @@ export interface Organization {
 }
 
 export interface StoreDetails {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   fulfillments: any[];
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   custom_area: any[];
 }
 
@@ -152,6 +156,7 @@ export const useGetOrder = (id: string) => {
   return { data, isLoading };
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const updateOrder = async (id: string, data: any): Promise<Daum> => {
   const res = await httpService.post<Daum>(`/orders/${id}/status`, data);
   return res;
@@ -159,6 +164,7 @@ const updateOrder = async (id: string, data: any): Promise<Daum> => {
 
 export const useUpdateOrder = (id: string) => {
   const { mutate, isPending, isError, error } = useMutation({
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     mutationFn: (data: any) => updateOrder(id, data),
   });
   return { mutate, isPending, isError, error };

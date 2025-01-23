@@ -11,8 +11,6 @@ import {
   NavigationMenuItem,
   NavigationMenuTrigger,
   NavigationMenuContent,
-  NavigationMenuViewport,
-  NavigationMenuIndicator,
 } from "../navigation-menu";
 
 describe("NavigationMenu Component", () => {

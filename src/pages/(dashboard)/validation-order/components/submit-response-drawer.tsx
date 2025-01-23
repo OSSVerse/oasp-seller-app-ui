@@ -63,7 +63,7 @@ const SubmitResponseDrawer = ({ order }: SubmitResponseDrawerProps) => {
                   title: "Validation Order Completed",
                   content: <OrderComplete />,
                   confirmLabel: "Goto My Billing & Account",
-                  onConfirm: () => {},
+                  onConfirm: () => { },
                   closeLabel: "Close", // change the current status to order complete
                   onClose: () => {
                     updateCurrentStatus(ORDER_STATUS.COMPLETED_ORDER);
@@ -99,6 +99,8 @@ const SubmitResponseDrawer = ({ order }: SubmitResponseDrawerProps) => {
         </Button>
       </div>
       {isValid && (
+        // biome-ignore lint/a11y/noRedundantRoles: <explanation>
+        // biome-ignore lint/a11y/useSemanticElements: <explanation>
         <form role="form" onSubmit={handleOnSubmit} className="flex flex-col gap-3">
           <div className="flex flex-col gap-3 px-3 pb-3">
             <Label htmlFor="notes">Notes</Label>
